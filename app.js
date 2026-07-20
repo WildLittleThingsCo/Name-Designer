@@ -2,15 +2,77 @@
 // Simple product visualiser
 // The generated name always uses the Mochi Boom font.
 
-const palette = [
-  "#0f4c81", // deep blue
-  "#c0392b", // red
-  "#27ae60", // green
-  "#f39c12", // amber
-  "#8e44ad", // purple
-  "#ecf0f1", // silver-like light
-  "#2c3e50"  // dark slate
-];
+const collectionPalettes = {
+  ceramic: [
+    {
+      name: "Lilac",
+      hex: "#C5A6D8"
+    },
+    {
+      name: "Soft Pink",
+      hex: "#E8B6C2"
+    },
+    {
+      name: "Ice Blue",
+      hex: "#AFCEDC"
+    },
+    {
+      name: "Apple Green",
+      hex: "#A8C98E"
+    },
+    {
+      name: "Lemon",
+      hex: "#E7D47A"
+    },
+    {
+      name: "Mandarin",
+      hex: "#D98B55"
+    },
+    {
+      name: "Plum",
+      hex: "#754B68"
+    },
+    {
+      name: "Marine",
+      hex: "#416B7A"
+    }
+  ],
+
+  wildBear: [
+    {
+      name: "Ivory White",
+      hex: "#EEE9DF"
+    },
+    {
+      name: "Beige",
+      hex: "#D2BFA4"
+    },
+    {
+      name: "Latte",
+      hex: "#B99F82"
+    },
+    {
+      name: "Caramel",
+      hex: "#A9784F"
+    },
+    {
+      name: "Chocolate Brown",
+      hex: "#6E4935"
+    },
+    {
+      name: "Dark Brown",
+      hex: "#443126"
+    },
+    {
+      name: "Desert Tan",
+      hex: "#C6A77C"
+    },
+    {
+      name: "Nardo Grey",
+      hex: "#9A9A94"
+    }
+  ]
+};
 
 const nameInput = document.getElementById("nameInput");
 const swatchesEl = document.getElementById("swatches");
