@@ -29,6 +29,8 @@ const collectionPalettes = {
 const nameInput = document.getElementById("nameInput");
 const collectionSelect = document.getElementById("collectionSelect");
 const swatchesEl = document.getElementById("swatches");
+const letterColorControls =
+  document.getElementById("letterColorControls");
 const previewCanvas = document.getElementById("previewCanvas");
 const ctx = previewCanvas.getContext("2d");
 const customColor = document.getElementById("customColor");
