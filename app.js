@@ -38,7 +38,7 @@ const collectionPalettes = {
     { name: "Ice Blue", hex: "#b0d6e1" },
     { name: "Lilac", hex: "#a896c6" },
     { name: "Lemon", hex: "#f3dc74" },
-  ]
+  ],
 };
 
 const nameInput = document.getElementById("nameInput");
