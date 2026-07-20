@@ -47,7 +47,7 @@ let mochiFontLoaded = false;
 // Load Mochi Boom for both the controls and canvas.
 const mochiFont = new FontFace(
   "Mochi",
-  'url("fonts/MochiBoom.ttf")'
+  'url("MochiBoom.ttf")'
 );
 
 async function loadMochiFont() {
