@@ -529,4 +529,3 @@ function hexToRgba(hex, alpha = 1) {
 // Initial setup.
 letterColours = createDefaultLetterColours(getCurrentText());
 loadMochiFont();
-```
