@@ -223,6 +223,7 @@ function buildLetterControls() {
 
     const control = document.createElement("div");
     control.className = "letter-control";
+    control.dataset.index = index;
 
     if (index === selectedLetterIndex) {
       control.classList.add("selected");
