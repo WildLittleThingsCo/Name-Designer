@@ -590,6 +590,20 @@ function hexToRgba(hex, alpha = 1) {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
+document.addEventListener("click", (event) => {
+  const clickedLetterControl =
+    event.target.closest(".letter-control");
+
+  const clickedPalette =
+    event.target.closest(".shared-palette-panel");
+
+  if (!clickedLetterControl && !clickedPalette) {
+    selectedLetterIndex = null;
+    sharedPalettePanel.classList.add("hidden");
+    buildLetterControls();
+  }
+});
+
 // Initial setup.
 letterColours = createDefaultLetterColours(getCurrentText());
 loadMochiFont();
