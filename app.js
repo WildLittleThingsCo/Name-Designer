@@ -258,6 +258,17 @@ collectionSelect.addEventListener("change", () => {
 
 // Update controls while the customer types.
 nameInput.addEventListener("input", () => {
+  let value = nameInput.value;
+  
+  // Remove any numbers
+  value = value.replace(/[0-9]/g, "");
+  
+  // Convert to uppercase
+  value = value.toUpperCase();
+  
+  // Update the input
+  nameInput.value = value;
+  
   buildLetterControls();
   render();
 });
