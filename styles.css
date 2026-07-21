@@ -297,4 +297,21 @@ canvas{max-width:100%;border-radius:6px}
     width: 100%;
   }
 }
-```
+.site-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.site-banner {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.tagline {
+    margin-top: 14px;
+    color: #6b645e;
+    font-size: 1rem;
+}
