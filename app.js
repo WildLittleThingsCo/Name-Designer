@@ -58,7 +58,6 @@ let activeCollection = collectionSelect.value;
 let activePalette = collectionPalettes[activeCollection];
 let letterColours = [];
 let selectedLetterIndex = null;
-let backgroundImage = null;
 let mochiFontLoaded = false;
 
 // Load Mochi Boom for both the controls and canvas.
@@ -350,7 +349,6 @@ resetBtn.addEventListener("click", () => {
   letterColours = createDefaultLetterColours(getCurrentText());
 
   selectedLetterIndex = 0;
-  backgroundImage = null;
 
   buildLetterControls();
   render();
@@ -368,12 +366,6 @@ downloadBtn.addEventListener("click", () => {
   link.href = previewCanvas.toDataURL("image/png");
   link.click();
 });
-
-// Draw an uploaded photo while preserving its proportions.
-function drawBackgroundImage(width, height) {
-  const canvasRatio = width / height;
-  const imageRatio =
-    backgroundImage.width / backgroundImage.height;
 
   let sourceX = 0;
   let sourceY = 0;
@@ -462,11 +454,7 @@ function render() {
 
   ctx.clearRect(0, 0, width, height);
 
-  if (backgroundImage) {
-    drawBackgroundImage(width, height);
-  } else {
-    drawDefaultBackground(width, height);
-  }
+drawDefaultBackground(width, height);
 
   const enteredText = getCurrentText();
   const displayText = enteredText || "SAMPLE NAME";
