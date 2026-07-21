@@ -145,11 +145,38 @@ function syncLetterColours() {
 }
 
 // Select a letter to open the shared palette.
-function selectLetter(index) {
+function selectLetter(index, colourButton) {
+  if (selectedLetterIndex === index) {
+    selectedLetterIndex = null;
+    sharedPalettePanel.classList.add("hidden");
+    buildLetterControls();
+    return;
+  }
+
   selectedLetterIndex = index;
 
   buildLetterControls();
   buildSharedPalette();
+
+  requestAnimationFrame(() => {
+    positionPalettePopup(index);
+  });
+}
+
+function positionPalettePopup(index) {
+  const selectedControl = letterColorControls.querySelector(
+    `.letter-control[data-index="${index}"]`
+  );
+
+  if (!selectedControl) {
+    return;
+  }
+
+  sharedPalettePanel.style.left =
+    `${selectedControl.offsetLeft + selectedControl.offsetWidth / 2}px`;
+
+  sharedPalettePanel.style.top =
+    `${selectedControl.offsetTop + selectedControl.offsetHeight + 12}px`;
 }
 
 // Create the clickable letter controls with colour circles.
