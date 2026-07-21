@@ -310,3 +310,63 @@ h1{margin:0 0 12px 0;font-size:20px}
   margin-bottom: 35px;
   padding: 0;
 }
+@media (max-width: 650px) {
+  body {
+    padding: 12px;
+  }
+
+  .container {
+    gap: 16px;
+  }
+
+  .site-header {
+    margin-bottom: 0;
+  }
+
+  .controls {
+    padding: 14px;
+  }
+
+  .letter-customiser {
+    padding: 14px;
+  }
+
+  .preview-section {
+    order: initial;
+  }
+
+  #previewCanvas {
+    border-radius: 12px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  .letter-color-controls {
+    gap: 12px;
+  }
+
+  .letter-control {
+    min-width: 44px;
+  }
+
+  .letter-character {
+    min-height: 42px;
+    font-size: 1.7rem;
+  }
+
+  .current-colour-button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .shared-colour-button {
+    width: 36px;
+    height: 36px;
+  }
+}
