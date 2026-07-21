@@ -304,10 +304,10 @@ canvas{max-width:100%;border-radius:6px}
 
 .site-banner {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     height: auto;
     display: block;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .tagline {
@@ -320,5 +320,5 @@ canvas{max-width:100%;border-radius:6px}
   margin-left: -50px;
   margin-right: -50px;
   margin-top: -40px;
-  padding: 10px;
+  padding: 0;
 }
