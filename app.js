@@ -340,7 +340,7 @@ nameInput.addEventListener("input", () => {
 
 // Reset the visualiser.
 resetBtn.addEventListener("click", () => {
-  nameInput.value = "CARTER";
+  nameInput.value = "NAME";
 
   collectionSelect.value = "ceramic";
   activeCollection = "ceramic";
