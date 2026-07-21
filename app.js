@@ -211,9 +211,7 @@ function buildLetterControls() {
     characters[selectedLetterIndex] !== " ";
 
   if (!validSelectedLetter) {
-    selectedLetterIndex = characters.findIndex(
-      (character) => character !== " "
-    );
+    selectedLetterIndex = null;
   }
 
   characters.forEach((character, index) => {
