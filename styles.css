@@ -289,6 +289,57 @@ h1{margin:0 0 12px 0;font-size:20px}
   margin-bottom: 35px;
   padding: 0;
 }
+.setup-section,
+.colour-section,
+.download-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.step-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #796759;
+}
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.section-description {
+  margin: 0;
+}
+
+.preview-section {
+  margin: 0;
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.button-row button {
+  flex: 1;
+  min-width: 160px;
+}
 @media (max-width: 650px) {
   body {
     padding: 12px;
