@@ -367,42 +367,6 @@ downloadBtn.addEventListener("click", () => {
   link.click();
 });
 
-  let sourceX = 0;
-  let sourceY = 0;
-  let sourceWidth = backgroundImage.width;
-  let sourceHeight = backgroundImage.height;
-
-  if (imageRatio > canvasRatio) {
-    const croppedWidth =
-      backgroundImage.height * canvasRatio;
-
-    sourceX =
-      (backgroundImage.width - croppedWidth) / 2;
-
-    sourceWidth = croppedWidth;
-  } else {
-    const croppedHeight =
-      backgroundImage.width / canvasRatio;
-
-    sourceY =
-      (backgroundImage.height - croppedHeight) / 2;
-
-    sourceHeight = croppedHeight;
-  }
-
-  ctx.drawImage(
-    backgroundImage,
-    sourceX,
-    sourceY,
-    sourceWidth,
-    sourceHeight,
-    0,
-    0,
-    width,
-    height
-  );
-}
-
 // Draw a simple neutral display background.
 function drawDefaultBackground(width, height) {
   const gradient = ctx.createLinearGradient(
