@@ -252,7 +252,7 @@ function buildLetterControls() {
     );
 
     colourButton.addEventListener("click", () => {
-      selectLetter(index);
+    selectLetter(index, colourButton);
     });
 
     const colourName = document.createElement("div");
