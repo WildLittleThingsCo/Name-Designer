@@ -324,15 +324,35 @@ h1{margin:0 0 12px 0;font-size:20px}
     margin: 0;
 }
 
-.tagline {
-    margin: 18px 0 0;
-    text-align: center;
-    color: #6b645e;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+.hero-section{
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 30px;
+}
+
+.hero-kicker{
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:#B78767;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.hero-title{
+    font-family:Georgia, serif;
+    font-size:clamp(2.2rem,5vw,3.4rem);
+    color:#4F453E;
+    margin:0 0 14px;
+    line-height:1.1;
+}
+
+.tagline{
+    max-width:560px;
+    margin:0 auto;
+    font-size:1.08rem;
+    line-height:1.8;
+    color:#6B645E;
 }
 .site-header {
   margin-left: -24px;
