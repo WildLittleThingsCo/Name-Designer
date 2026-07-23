@@ -23,7 +23,7 @@ background: linear-gradient(135deg, #fcf3e8 0%, #f9dac5 100%);  margin:0;
 h1{margin:0 0 12px 0;font-size:20px}
 .controls {
   width: 100%;
-  max-width: 760px;
+  max-width: 900px;
   margin: 0 auto;
 
   background: var(--card);
@@ -384,17 +384,17 @@ h1{margin:0 0 12px 0;font-size:20px}
   min-width: 160px;
 }
 
-.setup-section {
+.controls.setup-section {
   background: #f7eee9;
   border: 2px solid #d9a98f;
 }
 
-.colour-section {
+.controls.colour-section {
   background: #f1edf7;
   border: 2px solid #bca7d4;
 }
 
-.download-section {
+.controls.download-section {
   background: #eef5ec;
   border: 2px solid #a9c39e;
 }
