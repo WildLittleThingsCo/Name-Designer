@@ -452,11 +452,11 @@ h1{margin:0 0 12px 0;font-size:20px}
 }
 
 .order-summary {
-  margin-top: 24px;
-  padding: 24px;
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid #e8e1dc;
+    margin-top: 24px;
+    padding: 28px;
+    background: #fff;
+    border: 2px solid #e9dfd8;
+    border-radius: 22px;
 }
 
 .summary-group + .summary-group {
@@ -464,13 +464,13 @@ h1{margin:0 0 12px 0;font-size:20px}
 }
 
 .summary-label {
-  display: block;
-  margin-bottom: 7px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #9b8f88;
+    display: block;
+    margin-bottom: 8px;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #a2958d;
 }
 
 .summary-group p {
@@ -480,15 +480,20 @@ h1{margin:0 0 12px 0;font-size:20px}
 }
 
 #summaryName {
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4f4641;
+    letter-spacing: .03em;
 }
 
 #summaryColours {
-  overflow-wrap: anywhere;
+    margin-top: 6px;
+    line-height: 1.9;
+    font-size: 1rem;
+    color: #4f4641;
+    word-break: break-word;
 }
-
 .order-actions {
   display: flex;
   gap: 12px;
