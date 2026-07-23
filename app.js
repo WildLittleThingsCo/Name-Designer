@@ -402,12 +402,10 @@ function updateOrderSummary() {
   if (!design.colours || design.colours.length === 0) {
     summaryColours.textContent =
       "Enter a name to view your colour selection.";
-
     return;
   }
 
   const colourSummary = document.createElement("p");
-
   colourSummary.className = "summary-copy-text";
 
   colourSummary.textContent = design.colours
