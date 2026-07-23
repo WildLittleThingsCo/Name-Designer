@@ -452,114 +452,53 @@ h1{margin:0 0 12px 0;font-size:20px}
 }
 
 .order-summary {
-  padding: 22px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(137, 155, 117, 0.45);
-  border-radius: 16px;
+  margin-top: 24px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #e8e1dc;
 }
 
 .summary-group + .summary-group {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .summary-label {
   display: block;
-  margin-bottom: 5px;
-  color: #8b6757;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.summary-group strong {
-  display: block;
-  color: #4f453e;
-  font-size: 1.05rem;
-}
-
-.summary-colours {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: #4f453e;
-}
-
-.summary-colour-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 1.4;
-}
-
-.summary-colour-dot {
-  flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(70, 60, 54, 0.2);
-}
-
-.summary-letter {
-  min-width: 24px;
-  font-weight: 800;
-}
-
-.copy-preview {
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.48);
-  border: 1px dashed rgba(111, 100, 91, 0.45);
-  border-radius: 12px;
-}
-
-.copy-preview-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #796759;
-  font-size: 0.75rem;
-  font-weight: 800;
+  margin-bottom: 7px;
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: #9b8f88;
 }
 
-#copyTextPreview {
+.summary-group p {
   margin: 0;
-  color: #4f453e;
-  font-size: 0.86rem;
-  line-height: 1.6;
-  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #4f4641;
+}
+
+#summaryName {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+#summaryColours {
   overflow-wrap: anywhere;
 }
 
-#copyBtn {
-  background: #4f453e;
-  color: #ffffff;
-  border: 1px solid #4f453e;
+.order-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
 }
 
 .copy-confirmation {
   min-height: 24px;
-  margin: 0;
-  color: #637653;
-  font-size: 0.9rem;
-  font-weight: 800;
+  margin: 14px 0 0;
   text-align: center;
-}
-
-.etsy-next-step {
-  margin: 0;
-  color: #6e665f;
-  font-size: 0.84rem;
-  line-height: 1.5;
-  text-align: center;
-}
-
-.summary-copy-text {
-  margin: 0;
-  line-height: 1.7;
-  font-size: 1rem;
-  color: #4f4641;
 }
 
 @media (max-width: 650px) {
