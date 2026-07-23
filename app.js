@@ -78,7 +78,6 @@ async function loadMochiFont() {
     document.fonts.add(loadedFont);
     mochiFontLoaded = true;
 
-    // Force a small delay to ensure the font is registered
     await document.fonts.ready;
 
     buildLetterControls();
@@ -86,7 +85,6 @@ async function loadMochiFont() {
   } catch (error) {
     console.error("Mochi Boom could not be loaded:", error);
 
-    // The visualiser will still work with a fallback font.
     buildLetterControls();
     render();
   }
@@ -183,7 +181,6 @@ function positionPalettePopup(index) {
   sharedPalettePanel.style.top =
     `${selectedControl.offsetTop + selectedControl.offsetHeight + 12}px`;
 }
-
 // Create the clickable letter controls with colour circles.
 function buildLetterControls() {
   const text = getCurrentText();
@@ -200,7 +197,6 @@ function buildLetterControls() {
     message.textContent = "Enter a name above to begin choosing colours.";
 
     letterColorControls.appendChild(message);
-
     sharedPalettePanel.classList.add("hidden");
 
     return;
@@ -237,30 +233,36 @@ function buildLetterControls() {
     letterPreview.textContent = character;
     letterPreview.style.color = letterColours[index];
 
-    letterPreview.addEventListener("click", () => {
-    selectLetter(index, colourButton);
-    });
-
     const colourButton = document.createElement("button");
     colourButton.type = "button";
     colourButton.className = "current-colour-button";
     colourButton.style.backgroundColor = letterColours[index];
 
     const selectedColour = findColour(letterColours[index]);
-    colourButton.title = selectedColour ? selectedColour.name : "Choose colour";
+
+    colourButton.title = selectedColour
+      ? selectedColour.name
+      : "Choose colour";
 
     colourButton.setAttribute(
       "aria-label",
       `Choose colour for ${character}`
     );
 
+    letterPreview.addEventListener("click", () => {
+      selectLetter(index, colourButton);
+    });
+
     colourButton.addEventListener("click", () => {
-    selectLetter(index, colourButton);
+      selectLetter(index, colourButton);
     });
 
     const colourName = document.createElement("div");
     colourName.className = "letter-colour-name";
-    colourName.textContent = selectedColour ? selectedColour.name : "Choose colour";
+
+    colourName.textContent = selectedColour
+      ? selectedColour.name
+      : "Choose colour";
 
     control.appendChild(letterPreview);
     control.appendChild(colourButton);
@@ -292,14 +294,14 @@ function buildSharedPalette() {
 
   const selectedCharacter = characters[selectedLetterIndex];
 
-  selectedLetterLabel.textContent = `Choose a colour for ${selectedCharacter}`;
+  selectedLetterLabel.textContent =
+    `Choose a colour for ${selectedCharacter}`;
 
   activePalette.forEach((colour) => {
     const button = document.createElement("button");
 
     button.type = "button";
     button.className = "shared-colour-button";
-
     button.style.backgroundColor = colour.hex;
     button.title = colour.name;
 
@@ -317,104 +319,88 @@ function buildSharedPalette() {
       button.classList.add("selected");
     }
 
-   button.addEventListener("click", () => {
-  letterColours[selectedLetterIndex] = colour.hex;
+    button.addEventListener("click", () => {
+      letterColours[selectedLetterIndex] = colour.hex;
 
-  selectedLetterIndex = null;
-  sharedPalettePanel.classList.add("hidden");
+      selectedLetterIndex = null;
+      sharedPalettePanel.classList.add("hidden");
 
-  buildLetterControls();
-  render();
-});
-    
+      buildLetterControls();
+      render();
+    });
+
     sharedPalette.appendChild(button);
   });
 }
-function normaliseHex(hex) {
-  return String(hex || "").trim().toLowerCase();
-}
 
-function getCurrentPalette() {
-  return collectionPalettes[collectionSelect.value] || [];
-}
+// Create the Etsy order summary.
+function getDesignSummary() {
+  const name = getCurrentText().toUpperCase();
 
-function getColourDetails(hex) {
-  const normalisedHex = normaliseHex(hex);
-
-  const matchingColour = getCurrentPalette().find(
-    colour => normaliseHex(colour.hex) === normalisedHex
-  );
-
-  return {
-    name: matchingColour ? matchingColour.name : "Colour not selected",
-    hex: hex || "#ffffff"
-  };
-}
-
-function getSelectedCollectionName() {
   const selectedOption =
     collectionSelect.options[collectionSelect.selectedIndex];
 
-  return selectedOption
+  const collection = selectedOption
     ? selectedOption.textContent.trim()
     : "Collection not selected";
-}
 
-function createDesignSummary() {
-  const enteredName = nameInput.value.trim().toUpperCase();
-  const collectionName = getSelectedCollectionName();
+  const colours = Array.from(name)
+    .map((letter, index) => {
+      if (letter === " ") {
+        return null;
+      }
 
-  const colourSelections = [];
+      const colour = findColour(letterColours[index]);
 
-  [...enteredName].forEach((character, index) => {
-    if (character === " ") {
-      return;
-    }
+      return {
+        letter,
+        name: colour ? colour.name : "Colour not selected",
+        hex: letterColours[index] || "#ffffff"
+      };
+    })
+    .filter(Boolean);
 
-    const colour = getColourDetails(letterColours[index]);
-
-    colourSelections.push({
-      letter: character,
-      colourName: colour.name,
-      hex: colour.hex
-    });
-  });
-
-  const copiedText = enteredName
+  const copyText = name
     ? [
-        `Name: ${enteredName}`,
-        `Collection: ${collectionName}`,
-        `Colours: ${colourSelections
-          .map(item => `${item.letter}-${item.colourName}`)
+        `Name: ${name}`,
+        `Collection: ${collection}`,
+        `Colours: ${colours
+          .map((item) => `${item.letter}-${item.name}`)
           .join(", ")}`
       ].join("\n")
-    : "Enter a name and select your colours before copying your design.";
+    : "Enter a name and choose your colours before copying your design.";
 
   return {
-    enteredName,
-    collectionName,
-    colourSelections,
-    copiedText
+    name,
+    collection,
+    colours,
+    copyText
   };
 }
 
+// Update the visible order summary.
 function updateOrderSummary() {
-  const design = createDesignSummary();
+  const design = getDesignSummary();
 
-  summaryName.textContent = design.enteredName || "Enter your name";
-  summaryCollection.textContent = design.collectionName;
-  copyTextPreview.textContent = design.copiedText;
+  summaryName.textContent =
+    design.name || "Enter your name";
+
+  summaryCollection.textContent =
+    design.collection;
+
+  copyTextPreview.textContent =
+    design.copyText;
 
   summaryColours.innerHTML = "";
 
-  if (!design.colourSelections.length) {
+  if (!design.colours.length) {
     summaryColours.textContent =
       "Enter a name to view your colour selection.";
 
     return;
   }
 
-  design.colourSelections.forEach(item => {
+  design.colours.forEach((item) => {
     const row = document.createElement("div");
     row.className = "summary-colour-row";
 
@@ -427,18 +413,20 @@ function updateOrderSummary() {
     letter.textContent = item.letter;
 
     const colourName = document.createElement("span");
-    colourName.textContent = item.colourName;
+    colourName.textContent = item.name;
 
     row.append(dot, letter, colourName);
     summaryColours.appendChild(row);
   });
 }
-// Change collection and replace every letter colour with colours from the newly selected collection.
+// Change collection and replace each letter with colours
+// from the newly selected collection.
 collectionSelect.addEventListener("change", () => {
   activeCollection = collectionSelect.value;
   activePalette = collectionPalettes[activeCollection];
 
-  letterColours = createDefaultLetterColours(getCurrentText());
+  letterColours =
+    createDefaultLetterColours(getCurrentText());
 
   selectedLetterIndex = null;
 
@@ -446,17 +434,16 @@ collectionSelect.addEventListener("change", () => {
   render();
 });
 
-// Update controls while the customer types.
+// Update the controls while the customer types.
 nameInput.addEventListener("input", () => {
   let value = nameInput.value;
-  
-  // Remove any numbers
+
+  // Remove numbers.
   value = value.replace(/[0-9]/g, "");
-  
-  // Convert to uppercase
+
+  // Convert the name to uppercase.
   value = value.toUpperCase();
-  
-  // Update the input
+
   nameInput.value = value;
 
   syncLetterColours();
@@ -482,21 +469,75 @@ resetBtn.addEventListener("click", () => {
   activeCollection = "ceramic";
   activePalette = collectionPalettes.ceramic;
 
-  letterColours = createDefaultLetterColours(getCurrentText());
+  letterColours =
+    createDefaultLetterColours(getCurrentText());
 
   selectedLetterIndex = null;
+
+  copyConfirmation.textContent = "";
 
   buildLetterControls();
   render();
 });
 
-  const link = document.createElement("a");
-  const filename =
-    getCurrentText().replace(/\s+/g, "_") || "letter-design";
+// Copy the completed design summary for Etsy.
+copyBtn.addEventListener("click", async () => {
+  const design = getDesignSummary();
 
-  link.download = `${filename}.png`;
-  link.href = previewCanvas.toDataURL("image/png");
-  link.click();
+  copyConfirmation.textContent = "";
+
+  if (!design.name) {
+    copyConfirmation.textContent =
+      "Please enter a name before copying your design.";
+
+    nameInput.focus();
+    return;
+  }
+
+  const originalButtonText = copyBtn.textContent;
+
+  try {
+    await navigator.clipboard.writeText(design.copyText);
+  } catch (error) {
+    const textArea =
+      document.createElement("textarea");
+
+    textArea.value = design.copyText;
+    textArea.setAttribute("readonly", "");
+
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    textArea.style.opacity = "0";
+
+    document.body.appendChild(textArea);
+
+    textArea.select();
+    textArea.setSelectionRange(
+      0,
+      textArea.value.length
+    );
+
+    const copied =
+      document.execCommand("copy");
+
+    textArea.remove();
+
+    if (!copied) {
+      copyConfirmation.textContent =
+        "Copying did not work. Please copy the text manually.";
+
+      return;
+    }
+  }
+
+  copyBtn.textContent = "✓ Copied!";
+
+  copyConfirmation.textContent =
+    "Your design is ready to paste into Etsy.";
+
+  window.setTimeout(() => {
+    copyBtn.textContent = originalButtonText;
+  }, 2000);
 });
 
 // Draw a simple neutral display background.
@@ -511,7 +552,14 @@ function drawDefaultBackground(width, height) {
   gradient.addColorStop(0, "#ffffff");
   gradient.addColorStop(1, "#f1efec");
 
-  roundRect(ctx, 0, 0, width, height, 24);
+  roundRect(
+    ctx,
+    0,
+    0,
+    width,
+    height,
+    24
+  );
 
   ctx.fillStyle = gradient;
   ctx.fill();
@@ -519,7 +567,15 @@ function drawDefaultBackground(width, height) {
   ctx.strokeStyle = "#ddd7d1";
   ctx.lineWidth = 2;
 
-  roundRect(ctx, 1, 1, width - 2, height - 2, 24);
+  roundRect(
+    ctx,
+    1,
+    1,
+    width - 2,
+    height - 2,
+    24
+  );
+
   ctx.stroke();
 }
 
@@ -542,18 +598,24 @@ function measureCharacters(text) {
     totalWidth
   };
 }
-
 // Render the personalised name.
 function render() {
   const width = previewCanvas.width;
   const height = previewCanvas.height;
 
-  ctx.clearRect(0, 0, width, height);
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
 
-drawDefaultBackground(width, height);
+  drawDefaultBackground(width, height);
 
   const enteredText = getCurrentText();
-  const displayText = enteredText || "WILD LITTLE THINGS";
+
+  const displayText =
+    enteredText || "WILD LITTLE THINGS";
 
   let displayColours;
 
@@ -561,10 +623,13 @@ drawDefaultBackground(width, height);
     syncLetterColours();
     displayColours = letterColours;
   } else {
-    displayColours = createDefaultLetterColours(displayText);
+    displayColours =
+      createDefaultLetterColours(displayText);
   }
 
-  let fontSize = Math.floor(height * 0.42);
+  let fontSize =
+    Math.floor(height * 0.42);
+
   const fontFamily = mochiFontLoaded
     ? '"Mochi"'
     : "sans-serif";
@@ -573,36 +638,48 @@ drawDefaultBackground(width, height);
   ctx.textAlign = "left";
   ctx.font = `${fontSize}px ${fontFamily}`;
 
-  let measurement = measureCharacters(displayText);
+  let measurement =
+    measureCharacters(displayText);
 
   while (
     measurement.totalWidth > width - 140 &&
     fontSize > 20
   ) {
     fontSize -= 4;
-    ctx.font = `${fontSize}px ${fontFamily}`;
-    measurement = measureCharacters(displayText);
+
+    ctx.font =
+      `${fontSize}px ${fontFamily}`;
+
+    measurement =
+      measureCharacters(displayText);
   }
 
   let currentX =
-    width / 2 - measurement.totalWidth / 2;
+    width / 2 -
+    measurement.totalWidth / 2;
 
   measurement.characters.forEach(
     (character, index) => {
-      const characterWidth = measurement.widths[index];
+      const characterWidth =
+        measurement.widths[index];
 
       if (character !== " ") {
         const colour =
           displayColours[index] ||
-          activePalette[index % activePalette.length].hex;
+          activePalette[
+            index % activePalette.length
+          ].hex;
 
         ctx.save();
 
-        ctx.shadowColor = "rgba(0, 0, 0, 0.14)";
+        ctx.shadowColor =
+          "rgba(0, 0, 0, 0.14)";
+
         ctx.shadowBlur = 9;
         ctx.shadowOffsetY = 3;
 
         ctx.fillStyle = colour;
+
         ctx.fillText(
           character,
           currentX,
@@ -614,7 +691,8 @@ drawDefaultBackground(width, height);
           fontSize * 0.025
         );
 
-        ctx.strokeStyle = hexToRgba(colour, 0.08);
+        ctx.strokeStyle =
+          hexToRgba(colour, 0.08);
 
         ctx.strokeText(
           character,
@@ -629,7 +707,7 @@ drawDefaultBackground(width, height);
     }
   );
 
-updateOrderSummary();
+  updateOrderSummary();
 }
 
 // Rounded rectangle helper.
@@ -642,7 +720,12 @@ function roundRect(
   radius
 ) {
   context.beginPath();
-  context.moveTo(x + radius, y);
+
+  context.moveTo(
+    x + radius,
+    y
+  );
+
   context.arcTo(
     x + width,
     y,
@@ -650,6 +733,7 @@ function roundRect(
     y + height,
     radius
   );
+
   context.arcTo(
     x + width,
     y + height,
@@ -657,6 +741,7 @@ function roundRect(
     y + height,
     radius
   );
+
   context.arcTo(
     x,
     y + height,
@@ -664,6 +749,7 @@ function roundRect(
     y,
     radius
   );
+
   context.arcTo(
     x,
     y,
@@ -671,44 +757,69 @@ function roundRect(
     y,
     radius
   );
+
   context.closePath();
 }
 
-// Convert hex colour to transparent RGBA.
+// Convert a hex colour to transparent RGBA.
 function hexToRgba(hex, alpha = 1) {
-  const cleanedHex = hex.replace("#", "");
+  const cleanedHex =
+    hex.replace("#", "");
 
   const expandedHex =
     cleanedHex.length === 3
       ? cleanedHex
           .split("")
-          .map((character) => character + character)
+          .map(
+            (character) =>
+              character + character
+          )
           .join("")
       : cleanedHex;
 
-  const colourNumber = parseInt(expandedHex, 16);
+  const colourNumber =
+    parseInt(expandedHex, 16);
 
-  const red = (colourNumber >> 16) & 255;
-  const green = (colourNumber >> 8) & 255;
-  const blue = colourNumber & 255;
+  const red =
+    (colourNumber >> 16) & 255;
+
+  const green =
+    (colourNumber >> 8) & 255;
+
+  const blue =
+    colourNumber & 255;
 
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
+// Close the colour palette when clicking elsewhere.
 document.addEventListener("click", (event) => {
   const clickedLetterControl =
     event.target.closest(".letter-control");
 
   const clickedPalette =
-    event.target.closest(".shared-palette-panel");
+    event.target.closest(
+      ".shared-palette-panel"
+    );
 
-  if (!clickedLetterControl && !clickedPalette) {
+  if (
+    !clickedLetterControl &&
+    !clickedPalette
+  ) {
     selectedLetterIndex = null;
-    sharedPalettePanel.classList.add("hidden");
+
+    sharedPalettePanel.classList.add(
+      "hidden"
+    );
+
     buildLetterControls();
   }
 });
 
 // Initial setup.
-letterColours = createDefaultLetterColours(getCurrentText());
+letterColours =
+  createDefaultLetterColours(
+    getCurrentText()
+  );
+
 loadMochiFont();
