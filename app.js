@@ -480,41 +480,29 @@ copyBtn.addEventListener("click", async () => {
     return;
   }
 
-  const originalButtonText = copyBtn.textContent;
-
   try {
-    await navigator.clipboard.writeText(design.copyText);
+    await navigator.clipboard.writeText(
+      design.copyText
+    );
   } catch (error) {
     const textArea =
       document.createElement("textarea");
 
     textArea.value = design.copyText;
-    textArea.setAttribute("readonly", "");
-
     textArea.style.position = "fixed";
     textArea.style.left = "-9999px";
-    textArea.style.opacity = "0";
 
     document.body.appendChild(textArea);
 
+    textArea.focus();
     textArea.select();
-    textArea.setSelectionRange(
-      0,
-      textArea.value.length
-    );
 
-    const copied =
-      document.execCommand("copy");
+    document.execCommand("copy");
 
     textArea.remove();
-
-    if (!copied) {
-      copyConfirmation.textContent =
-        "Copying did not work. Please copy the text manually.";
-
-      return;
-    }
   }
+
+  const originalText = copyBtn.textContent;
 
   copyBtn.textContent = "✓ Copied!";
 
@@ -522,7 +510,7 @@ copyBtn.addEventListener("click", async () => {
     "Your design is ready to paste into Etsy.";
 
   window.setTimeout(() => {
-    copyBtn.textContent = originalButtonText;
+    copyBtn.textContent = originalText;
   }, 2000);
 });
 
