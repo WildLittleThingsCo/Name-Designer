@@ -50,7 +50,12 @@ const selectedLetterLabel = document.getElementById("selectedLetterLabel");
 const sharedPalette = document.getElementById("sharedPalette");
 const previewCanvas = document.getElementById("previewCanvas");
 const resetBtn = document.getElementById("resetBtn");
-const downloadBtn = document.getElementById("downloadBtn");
+const copyBtn = document.getElementById("copyBtn");
+const summaryName = document.getElementById("summaryName");
+const summaryCollection = document.getElementById("summaryCollection");
+const summaryColours = document.getElementById("summaryColours");
+const copyTextPreview = document.getElementById("copyTextPreview");
+const copyConfirmation = document.getElementById("copyConfirmation");
 
 const ctx = previewCanvas.getContext("2d");
 
@@ -382,10 +387,6 @@ resetBtn.addEventListener("click", () => {
   buildLetterControls();
   render();
 });
-
-// Download the canvas preview.
-downloadBtn.addEventListener("click", () => {
-  render();
 
   const link = document.createElement("a");
   const filename =
