@@ -296,7 +296,7 @@ h1{margin:0 0 12px 0;font-size:20px}
 }
 
 .preview-section {
-  padding: 24px;
+  padding: 20px;
 }
 
 #previewCanvas {
@@ -305,7 +305,7 @@ h1{margin:0 0 12px 0;font-size:20px}
   height: auto;
   margin: 0 auto;
   box-sizing: border-box;
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 2.2 / 1;
   border-radius: 18px;
 }
 
