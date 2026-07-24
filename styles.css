@@ -718,22 +718,24 @@ h1{margin:0 0 12px 0;font-size:20px}
 .icon{
     font-size:1.2rem;
 }
-.etsy-button {
-    display: block;
-    width: 100%;
-    margin: 20px 0;
-    padding: 14px 18px;
+.etsy-button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 20px auto;
+    padding: 14px 28px;
 
     background: #F1641E;
     color: #fff;
-    text-align: center;
     text-decoration: none;
     font-weight: 700;
+
     border-radius: 12px;
 
-    transition: 0.2s ease;
+    width: fit-content;
 }
-
 .etsy-button:hover {
     background: #d95616;
     transform: translateY(-1px);
